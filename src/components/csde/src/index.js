@@ -8,7 +8,7 @@ import CsvFile from './helpers/CsvFile';
 const path = require('path');
 
 
-const main = async (surveyFile, publicFile, privateFile, downloadFile, setStatus) => {
+const calculate = async (surveyFile, publicFile, privateFile, downloadFile, setStatus) => {
   // Load the data from the CSVs
   setStatus("calculating...");
   let count = 0;
@@ -37,4 +37,4 @@ const main = async (surveyFile, publicFile, privateFile, downloadFile, setStatus
   setStatus('done')
 }
 
-export default main;
+export default calculate;

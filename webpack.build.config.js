@@ -20,14 +20,6 @@ module.exports = {
         include: defaultInclude
       },
       {
-        test: /\.scss$/,
-        use: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader' },
-          { loader: 'sass-loader' }],
-        include: defaultInclude
-      },
-      {
         test: /\.jsx?$/,
         use: [{ loader: 'babel-loader' }],
         include: defaultInclude
@@ -56,7 +48,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
-    new MinifyPlugin()
+    // new MinifyPlugin()
   ],
   stats: {
     colors: true,

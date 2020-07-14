@@ -1,8 +1,7 @@
 import '../assets/css/App.css'
 import React, { useState } from 'react'
-import { remote, ipcMain } from 'electron';
-import main from './csde/src/index';
-import "./index.scss"
+import { remote } from 'electron';
+import calculate from './csde/src/index';
 
 const dialogOptions = {
   type: 'info',
@@ -64,7 +63,7 @@ function App() {
         <h1>Save new file as: </h1>
         <input placeholder="file name" value={resFile} onChange={(e) => setResFile(e.target.value)} /> <br />
         <button
-          onClick={() => main(surveyFile[0],
+          onClick={() => calculate(surveyFile[0],
             publicFile[0],
             privateFile[0],
             `${remote.app.getPath('desktop')}/${resFile}.csv`,
