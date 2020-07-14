@@ -5,12 +5,11 @@ import csvToObjects from './helpers/csvToObjects';
 import cleanName from './helpers/cleanName';
 import getBestMatch from './helpers/getBestMatch';
 import CsvFile from './helpers/CsvFile';
-// import displayStatus from './helpers/displayStatus';
 const path = require('path');
 
 
 const calculate = async (surveyFile, publicFile, privateFile, downloadFile) => {
-  //displayStatus("Loading survey data...");
+  document.getElementById("status").innerText = "Loading survey data...";
 
   // Load the data from the CSVs
   let count = 0;
@@ -18,8 +17,13 @@ const calculate = async (surveyFile, publicFile, privateFile, downloadFile) => {
   const governmentData = await csvToMap(privateFile, await csvToMap(publicFile, getAlphaMap()));
 
   // main program loop
-  const res = surveyData.map(school => getBestMatch(school, governmentData));
+  //const res = surveyData.map(school => getBestMatch(school, governmentData));
+  let res = [];
 
+  for (let i = 0; i < surveyData.length; i++) {
+    await displayStatus("yp")
+    res.push(getBestMatch(surveyData[i], governmentData));
+  }
 
   const csvFile = new CsvFile({
     path: path.resolve(downloadFile),
@@ -35,7 +39,7 @@ const calculate = async (surveyFile, publicFile, privateFile, downloadFile) => {
       process.exit(1);
     });
 
-  setStatus('done')
+  document.getElementById("status").innerText = "Loading survey data...";
 }
 
 export default calculate;

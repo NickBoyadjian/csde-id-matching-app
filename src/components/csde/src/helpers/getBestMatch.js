@@ -8,6 +8,7 @@ export default function getBestMatch(school, governmentData) {
   const state = school.STATE.length == 2 ? school.STATE : abbr(school.STATE);
   let currentBest = "";
   let currentBestScore = 0;
+  console.log(name)
 
   // Round one, FIGHT ===============================================================================
   let governmentArray = name.charAt(0) >= 'a' && name.charAt(0) <= 'z'

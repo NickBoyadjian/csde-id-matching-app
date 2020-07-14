@@ -1,5 +1,5 @@
 import '../assets/css/App.css'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { remote } from 'electron';
 import calculate from './csde/src/index';
 import './style.css'
@@ -29,8 +29,19 @@ function App() {
     })
   }
 
+  useEffect(() => {
+    console.clear();
+    remote.Menu.setApplicationMenu(null)
+  }, [])
+
+  function toggleTools() {
+    console.clear();
+    remote.getCurrentWindow().toggleDevTools();
+  }
+
   return (
     <div className="container">
+      <div className="button is-warning" onClick={toggleTools}>Show program output</div>
       <div className="columns">
         <div className="column">
           <h1>Upload Survey</h1>
