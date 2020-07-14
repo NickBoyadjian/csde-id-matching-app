@@ -2,6 +2,7 @@ import '../assets/css/App.css'
 import React, { useState } from 'react'
 import { remote } from 'electron';
 import calculate from './csde/src/index';
+import './style.css'
 
 const dialogOptions = {
   type: 'info',
@@ -16,6 +17,7 @@ function App() {
   const [privateFile, setPrivateFile] = useState("");
   const [resFile, setResFile] = useState("");
   const [status, setStatus] = useState("");
+  const [count, setCount] = useState(0);
 
   function openFile(setter) {
     remote.dialog.showOpenDialog(remote.BrowserWindow, {
@@ -66,11 +68,10 @@ function App() {
           onClick={() => calculate(surveyFile[0],
             publicFile[0],
             privateFile[0],
-            `${remote.app.getPath('desktop')}/${resFile}.csv`,
-            setStatus)}
+            `${remote.app.getPath('desktop')}/${resFile}.csv`)}
           className="button is-primary">
           Generate new csv</button>
-        <p>{status}</p>
+        <p id="status"></p>
       </div>
     </div>
   )

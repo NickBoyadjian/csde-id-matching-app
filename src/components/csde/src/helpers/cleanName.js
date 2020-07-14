@@ -1,3 +1,5 @@
+import replaceall from 'replaceall';
+
 function arrReplace(arr, x, y) {
   let index = arr.indexOf(x);
   if (index < 0) return;
@@ -7,10 +9,11 @@ function arrReplace(arr, x, y) {
 
 export default function cleanName(n) {
   // Clean up any non alpha characters
-  let name = n
-    .toLowerCase().replace(".", "")
-    .replace("-", "")
-    .replace("_", "")
+  let name = replaceall(".", "", n)
+  name = replaceall("-", "", n);
+  name = replaceall("_", "", n);
+  name = name
+    .toLowerCase()
     .replace(" h s", " high school")
     .replace(" j h", " junior high")
     .split(" ");

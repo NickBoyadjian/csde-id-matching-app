@@ -52,6 +52,7 @@
     "path": "^0.12.7",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "replaceall": "^0.1.6",
     "sass-loader": "^9.0.2",
     "string-similarity": "^4.0.1",
     "us-state-converter": "^1.0.5"
