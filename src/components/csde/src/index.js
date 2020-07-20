@@ -9,37 +9,41 @@ const path = require('path');
 
 
 const calculate = async (surveyFile, publicFile, privateFile, downloadFile) => {
-  document.getElementById("status").innerText = "Loading survey data...";
+  try {
+    document.getElementById("status").innerText = "Calculating...";
+    document.getElementById("status2").innerText = "";
 
-  // Load the data from the CSVs
-  let count = 0;
-  const surveyData = csvToObjects(await csvToArray(surveyFile));
-  const governmentData = await csvToMap(privateFile, await csvToMap(publicFile, getAlphaMap()));
+    // Load the data from the CSVs
+    let count = 0;
+    const surveyData = csvToObjects(await csvToArray(surveyFile));
+    const governmentData = await csvToMap(privateFile, await csvToMap(publicFile, getAlphaMap()));
 
-  // main program loop
-  //const res = surveyData.map(school => getBestMatch(school, governmentData));
-  let res = [];
+    // main program loop
+    //const res = surveyData.map(school => getBestMatch(school, governmentData));
+    let res = [];
 
-  for (let i = 0; i < surveyData.length; i++) {
-    await displayStatus("yp")
-    res.push(getBestMatch(surveyData[i], governmentData));
-  }
+    for (let i = 0; i < surveyData.length; i++) {
+      res.push(getBestMatch(surveyData[i], governmentData));
+    }
 
-  const csvFile = new CsvFile({
-    path: path.resolve(downloadFile),
-    // headers to write
-    headers: Object.keys(res[0]),
-  });
-
-  // 1. create the csv
-  csvFile
-    .create(res)
-    .catch(err => {
-      console.error(err.stack);
-      process.exit(1);
+    const csvFile = new CsvFile({
+      path: path.resolve(downloadFile),
+      // headers to write
+      headers: Object.keys(res[0]),
     });
 
-  document.getElementById("status").innerText = "Loading survey data...";
+    // 1. create the csv
+    csvFile
+      .create(res)
+      .catch(err => {
+        console.error(err.stack);
+        process.exit(1);
+      });
+
+    document.getElementById("status").innerText = "Done";
+  } catch (error) {
+    document.getElementById("status").innerText = "Error";
+  }
 }
 
 export default calculate;

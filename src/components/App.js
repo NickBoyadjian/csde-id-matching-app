@@ -1,15 +1,9 @@
-import '../assets/css/App.css'
-import React, { useState, useEffect } from 'react'
+import '../assets/css/App.css';
+import React, { useState, useEffect } from 'react';
+import Instructions from './Instructions';
 import { remote } from 'electron';
 import calculate from './csde/src/index';
 import './style.css'
-
-const dialogOptions = {
-  type: 'info',
-  title: 'Information',
-  message: "This is an information dialog. Isn't it nice?",
-  buttons: ['Yes', 'No']
-};
 
 function App() {
   const [surveyFile, setSurveyFile] = useState("");
@@ -41,6 +35,8 @@ function App() {
 
   return (
     <div className="container">
+      <h1 className="title is-1">Id Matching</h1>
+      <Instructions />
       <div className="button is-warning" onClick={toggleTools}>Show program output</div>
       <div className="columns">
         <div className="column">
@@ -74,7 +70,7 @@ function App() {
 
       <div className="generate">
         <h1>Save new file as: </h1>
-        <input placeholder="file name" value={resFile} onChange={(e) => setResFile(e.target.value)} /> <br />
+        <input className="input" placeholder="file name (without .csv)" value={resFile} onChange={(e) => setResFile(e.target.value)} /> <br />
         <button
           onClick={() => calculate(surveyFile[0],
             publicFile[0],
@@ -83,6 +79,7 @@ function App() {
           className="button is-primary">
           Generate new csv</button>
         <p id="status"></p>
+        <p id="status2"></p>
       </div>
     </div>
   )

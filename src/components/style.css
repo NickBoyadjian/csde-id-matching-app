@@ -1,0 +1,19 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 25px;
+}
+
+html {
+  background-color: #eee;
+}
+
+.input {
+  width: 300px;
+}
+
+ol {
+  text-align: left;
+  margin-left: 25px;
+}

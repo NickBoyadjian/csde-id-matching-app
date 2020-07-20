@@ -3,58 +3,62 @@ import { abbr } from 'us-state-converter';
 import { compareTwoStrings } from 'string-similarity';
 
 export default function getBestMatch(school, governmentData) {
-  // set up
-  const name = cleanName(school.NAME);
-  const state = school.STATE.length == 2 ? school.STATE : abbr(school.STATE);
-  let currentBest = "";
-  let currentBestScore = 0;
-  console.log(name)
+  try {
+    // set up
+    const name = cleanName(school.NAME);
+    const state = school.STATE.length == 2 ? school.STATE : abbr(school.STATE);
+    let currentBest = "";
+    let currentBestScore = 0;
+    console.log(name)
 
-  // Round one, FIGHT ===============================================================================
-  let governmentArray = name.charAt(0) >= 'a' && name.charAt(0) <= 'z'
-    ? governmentData.get(name.charAt(0))
-    : governmentData.get('numerical');
+    // Round one, FIGHT ===============================================================================
+    let governmentArray = name.charAt(0) >= 'a' && name.charAt(0) <= 'z'
+      ? governmentData.get(name.charAt(0))
+      : governmentData.get('numerical');
 
 
-  [currentBest, currentBestScore] = loop(governmentArray, name, state, currentBest, currentBestScore);
+    [currentBest, currentBestScore] = loop(governmentArray, name, state, currentBest, currentBestScore);
 
-  let [shouldReturn, returnValue] = checkReturn(currentBest, currentBestScore, school, 2);
+    let [shouldReturn, returnValue] = checkReturn(currentBest, currentBestScore, school, 2);
 
-  if (shouldReturn)
-    return returnValue;
+    if (shouldReturn)
+      return returnValue;
 
-  // Round two, FIGHT ===============================================================================
-  const secondLetter = name.split(" ")[1].charAt(0);
-  let governmentArray2 = secondLetter >= 'a' && secondLetter <= 'z'
-    ? governmentData.get(secondLetter)
-    : governmentData.get('numerical');
+    // Round two, FIGHT ===============================================================================
+    const secondLetter = name.split(" ")[1].charAt(0);
+    let governmentArray2 = secondLetter >= 'a' && secondLetter <= 'z'
+      ? governmentData.get(secondLetter)
+      : governmentData.get('numerical');
 
-  [currentBest, currentBestScore] = loop(governmentArray2, name, state, currentBest, currentBestScore);
+    [currentBest, currentBestScore] = loop(governmentArray2, name, state, currentBest, currentBestScore);
 
-  [shouldReturn, returnValue] = checkReturn(currentBest, currentBestScore, school, 3);
+    [shouldReturn, returnValue] = checkReturn(currentBest, currentBestScore, school, 3);
 
-  if (shouldReturn)
-    return returnValue;
+    if (shouldReturn)
+      return returnValue;
 
-  // Round three, FIGHT ===============================================================================
-  const thirdLetter = name.split(" ")[1].charAt(0);
-  let governmentArray3 = thirdLetter >= 'a' && thirdLetter <= 'z'
-    ? governmentData.get(thirdLetter)
-    : governmentData.get('numerical');
+    // Round three, FIGHT ===============================================================================
+    const thirdLetter = name.split(" ")[1].charAt(0);
+    let governmentArray3 = thirdLetter >= 'a' && thirdLetter <= 'z'
+      ? governmentData.get(thirdLetter)
+      : governmentData.get('numerical');
 
-  [currentBest, currentBestScore] = loop(governmentArray3, name, state, currentBest, currentBestScore);
+    [currentBest, currentBestScore] = loop(governmentArray3, name, state, currentBest, currentBestScore);
 
-  [shouldReturn, returnValue] = checkReturn(currentBest, currentBestScore, school, 0);
+    [shouldReturn, returnValue] = checkReturn(currentBest, currentBestScore, school, 0);
 
-  if (shouldReturn)
-    return returnValue;
+    if (shouldReturn)
+      return returnValue;
 
-  // Round four, FIGHT ===============================================================================
-  let governmentArray4 = governmentData.get('t');
+    // Round four, FIGHT ===============================================================================
+    let governmentArray4 = governmentData.get('t');
 
-  [currentBest, currentBestScore] = loop(governmentArray4, name, state, currentBest, currentBestScore);
+    [currentBest, currentBestScore] = loop(governmentArray4, name, state, currentBest, currentBestScore);
 
-  return formatReturn(currentBest, currentBestScore, school);
+    return formatReturn(currentBest, currentBestScore, school);
+  } catch (error) {
+    document.getElementById("status2").innerText = "Error parsing survey file";
+  }
 }
 
 
