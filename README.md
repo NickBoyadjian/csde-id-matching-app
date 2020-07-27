@@ -8,3 +8,4 @@ Having to work with such large amounts of data, I needed to make changes to the 
 
 ## Final deliverable
 To make this program as easy to use as possible, I built a desktop application with Electron that the CSDE could use to run the program from their own computers.
+<img src="./preview.png" />

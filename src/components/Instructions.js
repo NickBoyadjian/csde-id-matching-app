@@ -9,7 +9,7 @@ function Instructions() {
         <li>Choose your public and private school data sets to match with</li>
         <li>Specify the name of your new CSV file</li>
         <li>Click <b>Generate new csv</b> and the program will download the new csv to your Dektop</li>
-        <li>Before running the program you can optionally open a side window by clicking on <b>Show program output</b>. This will let you see the school names as they are being processed</li>
+        <li>Before running the program you can optionally open a side window by clicking on <b>Show program output</b> and select the <b>console</b> tab if it's not already opened. This will let you see the school names as they are being processed</li>
       </ol>
     </div>
   )

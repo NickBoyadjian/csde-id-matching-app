@@ -7,17 +7,24 @@ import './style.css'
 
 function App() {
   const [surveyFile, setSurveyFile] = useState("");
+  const [dSurveyFile, setDSurveyFile] = useState("");
+
   const [publicFile, setPublicFile] = useState("");
+  const [dPublicFile, setDPublicFile] = useState("");
+
   const [privateFile, setPrivateFile] = useState("");
+  const [dPrivateFile, setDPrivateFile] = useState("");
+
   const [resFile, setResFile] = useState("");
   const [status, setStatus] = useState("");
   const [count, setCount] = useState(0);
 
-  function openFile(setter) {
+  function openFile(setter, dsetter) {
     remote.dialog.showOpenDialog(remote.BrowserWindow, {
       properties: ['openFile', 'openDirectory']
     }).then(result => {
       setter(result.filePaths);
+      dsetter(cleanName(result.filePaths))
     }).catch(err => {
       console.log(err)
     })
@@ -33,6 +40,11 @@ function App() {
     remote.getCurrentWindow().toggleDevTools();
   }
 
+  function cleanName(name) {
+    let words = name[0].split("/")
+    return words[words.length - 1]
+  }
+
   return (
     <div className="container">
       <h1 className="title is-1">Id Matching</h1>
@@ -42,29 +54,29 @@ function App() {
         <div className="column">
           <h1>Upload Survey</h1>
           <button
-            onClick={() => openFile(setSurveyFile)}
+            onClick={() => openFile(setSurveyFile, setDSurveyFile)}
             className="button is-primary">
             Open File
         </button>
-          <p>{surveyFile}</p>
+          <p>{dSurveyFile}</p>
         </div>
         <div className="column">
           <h1>Public Schools</h1>
           <button
-            onClick={() => openFile(setPublicFile)}
+            onClick={() => openFile(setPublicFile, setDPublicFile)}
             className="button is-primary">
             Open File
         </button>
-          <p>{publicFile}</p>
+          <p>{dPublicFile}</p>
         </div>
         <div className="column">
           <h1>Private Schools</h1>
           <button
-            onClick={() => openFile(setPrivateFile)}
+            onClick={() => openFile(setPrivateFile, setDPrivateFile)}
             className="button is-primary">
             Open File
         </button>
-          <p>{privateFile}</p>
+          <p>{dPrivateFile}</p>
         </div>
       </div>
 

@@ -72,6 +72,7 @@ export default function getBestMatch(school, governmentData) {
 
 // Helpers =========================================
 const formatReturn = (currentBest, currentBestScore, school) => {
+  console.log(currentBest)
   return Object.assign({}, school, {
     Matched_Name: currentBest.NAME,
     Matched_City: currentBest.CITY,
