@@ -6,10 +6,20 @@ export default function getBestMatch(school, governmentData) {
   try {
     // set up
     const name = cleanName(school.NAME);
-    const state = school.STATE.length == 2 ? school.STATE : abbr(school.STATE);
+    let state;
+
+    // we have to do all this mumbo jumbo because the converter doesn't include Oregon for some reason
+    if (school.STATE.length === 2) {
+      state = school.STATE
+    } else if (school.STATE.toLowerCase() === 'oregon' || school.STATE.toLowerCase() === 'or') {
+      state = 'OR'
+    } else {
+      state = abbr(school.STATE);
+    }
     let currentBest = "";
     let currentBestScore = 0;
     console.log(name)
+
 
     // Round one, FIGHT ===============================================================================
     let governmentArray = name.charAt(0) >= 'a' && name.charAt(0) <= 'z'
@@ -72,7 +82,6 @@ export default function getBestMatch(school, governmentData) {
 
 // Helpers =========================================
 const formatReturn = (currentBest, currentBestScore, school) => {
-  console.log(currentBest)
   return Object.assign({}, school, {
     Matched_Name: currentBest.NAME,
     Matched_City: currentBest.CITY,
